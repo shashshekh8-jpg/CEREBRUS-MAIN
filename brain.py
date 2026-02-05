@@ -3,24 +3,22 @@ import math
 import time
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
-from crypto_utils import CerberusCrypto
+from synapse import CerberusSynapse
 
-# Entropy threshold for encryption detection
-THRESHOLD = 7.5
+# The 7.8 threshold is the industry standard for identifying high-entropy noise
+THRESHOLD = 7.8
 
-class CerberusVaultHandler(FileSystemEventHandler):
+class CerberusAgent(FileSystemEventHandler):
     def __init__(self):
-        self.crypto = CerberusCrypto()
-        self.pub, self.priv = self.crypto.generate_rsa_keys()
-        print(f"[+] Cerberus RSA Node Initialized. Public Key: {self.pub}")
+        print("[*] Cerberus Edge Agent v2.0 Initializing...")
+        self.synapse = CerberusSynapse()
 
     def on_modified(self, event):
         if not event.is_directory:
             self.analyze_file(event.src_path)
 
     def calculate_entropy(self, data):
-        if not data:
-            return 0
+        if not data: return 0
         entropy = 0
         for x in range(256):
             p_x = float(data.count(x)) / len(data)
@@ -35,25 +33,22 @@ class CerberusVaultHandler(FileSystemEventHandler):
                 entropy = self.calculate_entropy(data)
                 
                 if entropy > THRESHOLD:
-                    print(f"\n[!] HI-ENTROPY DETECTED: {os.path.basename(file_path)} [{entropy:.4f}]")
-                    
-                    # Logic: Check for Cerberus authorized signature
-                    if data.startswith(b"CERBERUS_SIG"):
-                        print("[+] VERIFIED: Authorized Vault Operation. No action taken.")
-                    else:
-                        print("[!!!] WARNING: Unauthorized Encryption Detected! [MALWARE SUSPECTED]")
-                        print("[!] ACTION: LOCKING FILE SYSTEM HANDLES...")
+                    print(f"\n[!] ALERT: High Entropy [{entropy:.4f}] in {os.path.basename(file_path)}")
+                    # DISPATCH TO CLOUD: Sending the first 64 bytes as a hex dump for the dashboard
+                    self.synapse.emit_alert(file_path, entropy, data[:64].hex())
+                else:
+                    print(f"[*] Monitoring Integrity... [{entropy:.2f}]", end='\r')
         except Exception:
             pass
 
 if __name__ == "__main__":
     path = "./vault"
-    event_handler = CerberusVaultHandler()
+    event_handler = CerberusAgent()
     observer = Observer()
     observer.schedule(event_handler, path, recursive=False)
     
-    print("--- CERBERUS v1.1: RSA SECURE VAULT ENGINE ---")
-    print(f"Uptime: {time.ctime()}")
+    print("--- CERBERUS v2.0: CLOUD_UPLINK_PROTOCOL ---")
+    print("Status: EDGE_NODE_ACTIVE")
     observer.start()
     try:
         while True:

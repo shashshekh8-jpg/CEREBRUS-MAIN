@@ -16,8 +16,12 @@ export default function Dashboard() {
   const [initialized, setInitialized] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
+
+
   const refreshHistory = async () => {
-    const res = await fetch('/api/simulation/history');
+    
+ 
+    const res = await fetch('/api/simulation/history', { cache: 'no-store' });
     const data = await res.json();
     setHistory(data);
   };

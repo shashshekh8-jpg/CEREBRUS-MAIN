@@ -10,7 +10,7 @@ export default function ActiveLog({ alert }: { alert: any }) {
       const msg = alert 
         ? `>>> CRITICAL_ENTROPY_DETECTED: [TERMINATING_PID]` 
         : `RSA_VAULT::INTEGRITY_CHECK_PASS`;
-      setLogs(prev => [...prev.slice(-12), `[${new Date().toLocaleTimeString()}] \${msg}`]);
+      setLogs(prev => [...prev.slice(-12), `[${new Date().toLocaleTimeString()}] ${msg}`]);
     }, 900);
     return () => clearInterval(interval);
   }, [alert]);

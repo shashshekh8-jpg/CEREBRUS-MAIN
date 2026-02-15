@@ -489,8 +489,8 @@ Control panel for training the system and testing threat detection capabilities.
 
 Built with ❤️ by
 
-- **[Shashwat Shekhar]** 
-- **[Swayam Sawant]** 
+- **Shashwat Shekhar** 
+- **Swayam Sawant** 
 ---
 
 ## 📄 License
@@ -512,6 +512,7 @@ MIT License - feel free to use this in your own projects!
 
 **CERBERUS** - Because your data deserves a guardian.
 
-Made with 🛡️ at [Hackathon Name] 2026
+Made with 🛡️ at FrostByte 2026
 
 </div>
+

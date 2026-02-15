@@ -1,0 +1,4 @@
+{
+  "/api/simulation/history/route": "app/api/simulation/history/route.js",
+  "/dashboard/page": "app/dashboard/page.js"
+}

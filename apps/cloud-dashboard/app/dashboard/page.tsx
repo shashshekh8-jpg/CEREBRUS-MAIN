@@ -50,7 +50,7 @@ export default function Dashboard() {
         <div className="col-span-3 row-span-4"><KillCam alert={alert} /></div>
         <div className="col-span-6 row-span-5"><BioGrid active={!!alert} /></div>
         <div className="col-span-3 row-span-5 flex flex-col gap-6">
-          <Seismograph history={history} />
+          <Seismograph history={history} alert={alert} />
           <ActiveLog alert={alert} />
         </div>
         <div className="col-span-3 row-span-2 self-end">

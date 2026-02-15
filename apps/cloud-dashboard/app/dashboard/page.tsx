@@ -1,11 +1,13 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
-import BioGrid from '@/components/bio-grid';
-import KillCam from '@/components/kill-cam';
-import Seismograph from '@/components/seismograph';
-import SimulationDeck from '@/components/simulation-deck';
-import ActiveLog from '@/components/active-log';
-import { usePusher } from '@/hooks/use-pusher';
+import BioGrid from '../../components/bio-grid';
+import KillCam from '../../components/kill-cam';
+import Seismograph from '../../components/seismograph';
+import SimulationDeck from '../../components/simulation-deck';
+import ActiveLog from '../../components/active-log';
+import { usePusher } from '../../hooks/use-pusher';
+
+
 
 export default function Dashboard() {
   const pusherData = usePusher('critical-alert', 'threat-detected');
